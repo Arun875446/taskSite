@@ -1,0 +1,323 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Oswald", sans-serif;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url("images/matBg.png");
+  background-size: cover;
+  background-position: center;
+  overflow: visible;
+  text-align: center;
+}
+
+.hero-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+  z-index: 10;
+}
+
+.hero-text {
+  position: absolute;
+  top: 18%;
+  right: 35%;
+  color: #5c2e00;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  max-width: 250px;
+  z-index: 6;
+}
+
+.product-hero {
+  position: fixed;
+  top: 30%;
+  left: 25%;
+  transform: translateY(-50%);
+  width: auto;
+  height: 35%;
+  z-index: 5;
+  transition: top 1s ease;
+}
+
+.wheat-stalk {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  height: 43%;
+}
+
+.wheat-stalk.left {
+  left: 10px;
+}
+
+.wheat-stalk.right {
+  right: 10px;
+}
+
+.truck {
+  position: absolute;
+  left: 40%;
+  top: 42%;
+  width: 80px;
+  z-index: 4;
+  transform: translateX(-100%);
+  transition: transform 5s linear;
+}
+
+.truck.animate {
+  transform: translateX(300%);
+}
+
+.wave-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background-image: url("/images/wave.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.wave-separator {
+  width: 100%;
+  height: 100px;
+  background-image: url("wave.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  position: relative;
+  margin-top: -100px;
+}
+
+.golden-curve {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 679px;
+  height: 82px;
+  display: block;
+}
+
+.products {
+  padding: 80px 20px;
+}
+
+.products-title {
+  color: #5c2e00;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 60px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.products-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-image {
+  width: 100%;
+  max-width: 220px;
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.05);
+}
+
+.product-name {
+  margin-top: 10px;
+  color: #333;
+  font-weight: normal;
+}
+
+.product-size {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.products-container .product-item {
+  display: none;
+}
+
+#rice-bag-small {
+  max-width: 200px;
+}
+
+#rice-bag-medium {
+  max-width: 220px;
+}
+
+#rice-bag-large {
+  max-width: 240px;
+}
+
+/* Why Section */
+.why-section {
+  position: relative;
+  padding: 80px 20px;
+  background-image: url("./images/ellipse.png");
+  background-size: cover;
+  text-align: center;
+}
+
+.why-title {
+  color: #5c2e00;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.bag-icon {
+  width: 180px;
+  margin: 40px auto;
+}
+
+/* How to Cook Section */
+.how-to-cook {
+  padding: 60px 20px;
+  background-image: url("./images/some.png");
+  background-size: cover;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.how-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 60px;
+}
+
+.cooking-methods {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cooking-method {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.cooking-method:hover {
+  transform: rotate(5deg);
+}
+
+.method-red {
+  background-color: #a32e0f;
+}
+
+.method-green {
+  background-color: #137c3a;
+}
+
+.method-orange {
+  background-color: #cc6900;
+}
+
+.method-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.method-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.method-image {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  object-fit: contain;
+}
+
+.birds {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  width: 100px;
+  z-index: 3;
+}
+
+.tree {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 150px;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
+  .golden-curve {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .truck.animate {
+    transform: translateX(150%);
+  }
+}
+
+.bag-icon {
+  width: 180px;
+  margin: 40px auto 0;
+}
+
+.why-section {
+  position: relative;
+  padding: 80px 20px 40px; 
+  background-image: url("./images/ellipse.png");
+  background-size: cover;
+  text-align: center;
+}
+
+.why-title {
+  color: #5c2e00;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px; 
+}
