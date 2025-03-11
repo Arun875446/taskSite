@@ -9,7 +9,6 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   height: 100vh;
@@ -57,6 +56,25 @@ body {
   bottom: 0;
   width: auto;
   height: 43%;
+  animation: sway 4s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(2deg);
+  }
 }
 
 .wheat-stalk.left {
@@ -74,11 +92,11 @@ body {
   width: 80px;
   z-index: 4;
   transform: translateX(-100%);
-  transition: transform 5s linear;
+  transition: transform 5s ease-out;
 }
 
 .truck.animate {
-  transform: translateX(300%);
+  transform: translateX(60%);
 }
 
 .wave-bottom {
@@ -89,27 +107,6 @@ body {
   background-image: url("/images/wave.png");
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.wave-separator {
-  width: 100%;
-  height: 100px;
-  background-image: url("wave.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  position: relative;
-  margin-top: -100px;
-}
-
-.golden-curve {
-  position: absolute;
-  top: 34px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 679px;
-  height: 82px;
-  display: block;
 }
 
 .products {
@@ -179,13 +176,22 @@ body {
   max-width: 240px;
 }
 
-/* Why Section */
 .why-section {
   position: relative;
-  padding: 80px 20px;
+  padding: 80px 20px 120px;
   background-image: url("./images/ellipse.png");
   background-size: cover;
   text-align: center;
+  overflow: hidden;
+}
+
+.bag-icon {
+  width: 300px;
+  margin: 100px auto 0;
+  position: relative;
+  display: block;
+  max-width: 100%;
+  height: 300px;
 }
 
 .why-title {
@@ -193,14 +199,10 @@ body {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
 }
 
-.bag-icon {
-  width: 180px;
-  margin: 40px auto;
-}
-
-/* How to Cook Section */
 .how-to-cook {
   padding: 60px 20px;
   background-image: url("./images/some.png");
@@ -237,19 +239,40 @@ body {
 }
 
 .cooking-method:hover {
-  transform: rotate(5deg);
+  transform: rotate(-5deg);
 }
 
 .method-red {
   background-color: #a32e0f;
+}
+.method-red:hover {
+  background-image: url("./images/redsmoke.png");
+
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .method-green {
   background-color: #137c3a;
 }
 
+.method-green:hover {
+  background-image: url("./images/greensmoke.png");
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
 .method-orange {
   background-color: #cc6900;
+}
+
+.method-orange:hover {
+  background-image: url("./images/yellowsmoke.png");
+  background-size: 170px;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .method-title {
@@ -287,37 +310,70 @@ body {
   z-index: 3;
 }
 
-@media (max-width: 768px) {
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wave-separator {
+  width: 100%;
+  height: auto;
+  background-image: url("wave_separator.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  margin-top: -50px;
+  z-index: 1;
+}
+
+/* Golden Curve */
+.golden-curve {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-10%, -50%);
+  width: 70%;
+  height: 140px;
+  background-image: url("golden_curve.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
+  transform: translate(-50%, -50%) rotate(-7deg);
 }
 
 @media (max-width: 768px) {
   .golden-curve {
+    width: 90%;
+    top: 10px;
+    height: 120px;
+    transform: translate(-45%, -50%) rotate(-13deg);
+  }
+}
+
+@media (max-width: 400px) {
+  .golden-curve {
     display: none;
   }
-}
-
-@media (max-width: 768px) {
-  .truck.animate {
-    transform: translateX(150%);
+  .wheat-stalk {
+    height: 220px;
+    bottom: 40px;
   }
+  /* .hero-text{
+  margin-left: 400px;
+  } */
+}
+.products {
+  padding: 80px 20px;
+  min-height: 600px;
 }
 
-.bag-icon {
-  width: 180px;
-  margin: 40px auto 0;
-}
-
-.why-section {
-  position: relative;
-  padding: 80px 20px 40px; 
-  background-image: url("./images/ellipse.png");
-  background-size: cover;
-  text-align: center;
-}
-
-.why-title {
-  color: #5c2e00;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px; 
+.products-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 400px;
 }

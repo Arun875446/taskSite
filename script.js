@@ -1,138 +1,185 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Elements
   const riceBagHero = document.getElementById("rice-bag-hero");
   const productsSection = document.querySelector(".products");
   const productsContainer = document.querySelector(".products-container");
-
   const productItemSmall = document.getElementById("product-item-small");
   const productItemMedium = document.getElementById("product-item-medium");
   const productItemLarge = document.getElementById("product-item-large");
 
-  const productSizeSmall = productItemSmall.querySelector(".product-size");
-  const productSizeMedium = productItemMedium.querySelector(".product-size");
-  const productSizeLarge = productItemLarge.querySelector(".product-size");
+  const containerHeight = 400;
+  productsContainer.style.minHeight = `${containerHeight}px`;
 
-  let isHeroFixed = false;
+  productItemSmall.style.display = "none";
+  productItemMedium.style.display = "none";
+  productItemLarge.style.display = "none";
+
+  let state = {
+    heroActive: true,
+    smallVisible: false,
+    mediumVisible: false,
+    largeVisible: false,
+  };
+
+  const initialLeft = window.getComputedStyle(riceBagHero).left;
 
   window.addEventListener("scroll", () => {
-    const productsSectionTop = productsSection.offsetTop;
-    const scrollPosition = window.scrollY;
-    const heroHeight = riceBagHero.offsetHeight;
-    const offset = 500;
+    const scrollY = window.scrollY;
+    const triggerPoint = productsSection.offsetTop - window.innerHeight / 2;
 
-    if (scrollPosition < productsSectionTop - heroHeight) {
-      const maxTop = productsContainer.offsetTop + productsContainer.offsetHeight - heroHeight;
-      let newTop = Math.min(30 + scrollPosition * 0.2, maxTop);
+    if (state.heroActive) {
+      riceBagHero.style.left = initialLeft;
 
-      gsap.to(riceBagHero, {
-        top: `${newTop}%`,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    } else if (!isHeroFixed) {
-      isHeroFixed = true;
-      riceBagHero.style.position = "fixed";
+      if (scrollY < triggerPoint) {
+        const newTopPercentage = 30 + scrollY * 0.05;
+        riceBagHero.style.top = `${newTopPercentage}%`;
+      } else {
+        state.heroActive = false;
+        state.smallVisible = true;
 
-      const startTop = riceBagHero.getBoundingClientRect().top;
-      const endTop = productItemSmall.getBoundingClientRect().top;
-      const startLeft = riceBagHero.getBoundingClientRect().left;
+        riceBagHero.style.display = "none";
+        productItemSmall.style.display = "flex";
 
-      let startTime = null;
-
-      const animate = (currentTime) => {
-        if (!startTime) startTime = currentTime;
-
-        const progress = Math.min((currentTime - startTime) / 500, 1);
-        const newTop = startTop + (endTop - startTop) * progress;
-
-        riceBagHero.style.top = `${newTop}px`;
-        riceBagHero.style.left = `${startLeft}px`;
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          // Finalize the positioning
-          riceBagHero.style.position = "absolute";
-          riceBagHero.style.top = `${productItemSmall.offsetTop - productsSection.offsetTop}px`;
-          riceBagHero.style.left = `${productItemSmall.offsetLeft}px`;
-
-          riceBagHero.style.maxWidth = "220px";
-          riceBagHero.style.height = "auto";
-
-          // Delay the display of subsequent elements
-          setTimeout(() => {
-            riceBagHero.style.display = "none"; // Ensure hero image is hidden
-
-            productItemSmall.style.display = "flex";
-            productSizeSmall.style.display = "block";
-
-            setTimeout(() => {
-              productItemMedium.style.display = "flex";
-              productSizeMedium.style.display = "block";
-              gsap.to(productItemMedium, {
-                opacity: 1,
-                duration: 0.3,
-                ease: "power2.out",
-              });
-              gsap.to(productSizeMedium, {
-                opacity: 1,
-                duration: 0.3,
-                ease: "power2.out",
-              });
-              setTimeout(() => {
-                productItemLarge.style.display = "flex";
-                productSizeLarge.style.display = "block";
-                gsap.to(productItemLarge, {
-                  opacity: 1,
-                  duration: 0.3,
-                  ease: "power2.out",
-                });
-                gsap.to(productSizeLarge, {
-                  opacity: 1,
-                  duration: 0.3,
-                  ease: "power2.out",
-                });
-              }, 800);
-            }, 800);
-          }, 50);
-        }
-      };
-
-      requestAnimationFrame(animate);
+        gsap.from(productItemSmall, {
+          opacity: 0,
+          y: 20,
+          duration: 0.5,
+        });
+      }
     }
 
-    // Reset
-    if (scrollPosition < productsSectionTop - heroHeight - offset && isHeroFixed) {
-      productSizeLarge.style.display = "none";
-      productItemLarge.style.display = "none";
-      setTimeout(() => {
-        productSizeMedium.style.display = "none";
-        productItemMedium.style.display = "none";
-        setTimeout(() => {
-          productSizeSmall.style.display = "none";
-          productItemSmall.style.display = "none";
+    const mediumTrigger = triggerPoint + 200;
+    if (
+      !state.mediumVisible &&
+      state.smallVisible &&
+      scrollY >= mediumTrigger
+    ) {
+      state.mediumVisible = true;
+      productItemMedium.style.display = "flex";
 
-          riceBagHero.style.display = "block";
-          riceBagHero.style.position = "fixed";
-          riceBagHero.style.maxWidth = "40%";
-          riceBagHero.style.height = "35%";
-          gsap.to(riceBagHero, {
-            top: "30%",
-            left: "20%",
-            duration: 0.3,
-            onComplete: () => {
-              isHeroFixed = false;
-            },
-          });
-        }, 300);
-      }, 300);
+      gsap.from(productItemMedium, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+      });
+    }
+
+    const largeTrigger = mediumTrigger + 200;
+    if (!state.largeVisible && state.mediumVisible && scrollY >= largeTrigger) {
+      state.largeVisible = true;
+      productItemLarge.style.display = "flex";
+
+      gsap.from(productItemLarge, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+      });
+    }
+
+    if (state.largeVisible && scrollY < largeTrigger - 50) {
+      productItemLarge.style.display = "none";
+      state.largeVisible = false;
+    }
+
+    if (state.mediumVisible && scrollY < mediumTrigger - 50) {
+      productItemMedium.style.display = "none";
+      state.mediumVisible = false;
+    }
+
+    if (state.smallVisible && scrollY < triggerPoint - 50) {
+      productItemSmall.style.display = "none";
+      state.smallVisible = false;
+
+      riceBagHero.style.display = "block";
+      state.heroActive = true;
     }
   });
+
+  // Animate truck
+  const truck = document.querySelector(".truck");
+  setTimeout(() => {
+    truck.classList.add("animate");
+  }, 1000);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const truck = document.querySelector(".truck");
+  const whySection = document.querySelector(".why-section");
+  const whyTitle = document.querySelector(".why-title");
+  const bagIcon = document.querySelector(".bag-icon");
 
-  setTimeout(() => {
-    truck.classList.add("animate");
-  }, 1500);
+  const bgImages = [
+    "./images/ellipse.png",
+    "./images/why1.png",
+    "./images/why2.png",
+    "./images/why3.png",
+    "./images/why4.png",
+  ];
+
+  let currentBgIndex = 0;
+  let lastScrollY = window.scrollY;
+
+  const getSectionPositionDetails = () => {
+    const rect = whySection.getBoundingClientRect();
+    const sectionTop = rect.top + window.scrollY;
+    const sectionHeight = rect.height;
+    const sectionBottom = sectionTop + sectionHeight;
+    const sectionVisible =
+      window.scrollY + window.innerHeight > sectionTop &&
+      window.scrollY < sectionBottom;
+
+    return {
+      sectionTop,
+      sectionHeight,
+      sectionBottom,
+      sectionVisible,
+      viewportMiddle: window.scrollY + window.innerHeight / 2,
+    };
+  };
+
+  const style = document.createElement("style");
+  style.textContent = `
+    .why-section {
+      transition: background-image 0.3s ease-in-out;
+    }
+    .why-title, .bag-icon {
+      transition: opacity 0.3s ease-in-out;
+    }
+  `;
+  document.head.appendChild(style);
+
+  const updateContentVisibility = (index) => {
+    if (index === 0) {
+      whyTitle.style.opacity = "1";
+      whyTitle.style.visibility = "visible";
+      bagIcon.style.opacity = "1";
+      bagIcon.style.visibility = "visible";
+    } else {
+      whyTitle.style.opacity = "0";
+      whyTitle.style.visibility = "hidden";
+      bagIcon.style.opacity = "0";
+      bagIcon.style.visibility = "hidden";
+    }
+  };
+
+  window.addEventListener("scroll", () => {
+    lastScrollY = window.scrollY;
+
+    const { sectionTop, sectionHeight, sectionVisible, viewportMiddle } =
+      getSectionPositionDetails();
+
+    if (!sectionVisible) return;
+
+    const progressInSection = (viewportMiddle - sectionTop) / sectionHeight;
+    const newIndex = Math.min(
+      Math.max(Math.floor(progressInSection * 5.4), 0),
+      4
+    );
+
+    if (newIndex !== currentBgIndex) {
+      currentBgIndex = newIndex;
+      whySection.style.backgroundImage = `url("${bgImages[currentBgIndex]}")`;
+
+      updateContentVisibility(currentBgIndex);
+    }
+  });
 });
