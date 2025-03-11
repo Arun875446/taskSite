@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Elements
   const riceBagHero = document.getElementById("rice-bag-hero");
   const productsSection = document.querySelector(".products");
   const productsContainer = document.querySelector(".products-container");
@@ -95,11 +94,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Animate truck
   const truck = document.querySelector(".truck");
   setTimeout(() => {
     truck.classList.add("animate");
   }, 1000);
+
+  function updateProductSizesForMobile() {
+    if (window.innerWidth <= 400) {
+      if (productItemSmall) productItemSmall.style.transform = "scale(0.8)";
+      if (productItemMedium) productItemMedium.style.transform = "scale(0.8)";
+      if (productItemLarge) productItemLarge.style.transform = "scale(0.8)";
+    } else {
+      
+      if (productItemSmall) productItemSmall.style.transform = "scale(1)";
+      if (productItemMedium) productItemMedium.style.transform = "scale(1)";
+      if (productItemLarge) productItemLarge.style.transform = "scale(1)";
+    }
+  }
+
+  updateProductSizesForMobile();
+  window.addEventListener("resize", updateProductSizesForMobile);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -159,6 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
       bagIcon.style.opacity = "0";
       bagIcon.style.visibility = "hidden";
     }
+
+    if (window.innerWidth <= 400) {
+      whySection.style.backgroundSize = "cover";
+      whySection.style.backgroundPosition = "center";
+    }
   };
 
   window.addEventListener("scroll", () => {
@@ -182,4 +201,14 @@ document.addEventListener("DOMContentLoaded", () => {
       updateContentVisibility(currentBgIndex);
     }
   });
+
+  function makeBackgroundImagesResponsive() {
+    if (window.innerWidth <= 400) {
+      whySection.style.backgroundSize = "cover";
+      whySection.style.backgroundPosition = "center";
+    }
+  }
+
+  makeBackgroundImagesResponsive();
+  window.addEventListener("resize", makeBackgroundImagesResponsive);
 });

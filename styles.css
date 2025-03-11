@@ -327,7 +327,6 @@ img {
   z-index: 1;
 }
 
-/* Golden Curve */
 .golden-curve {
   position: absolute;
   top: 30px;
@@ -352,16 +351,70 @@ img {
 }
 
 @media (max-width: 400px) {
+  .product-hero {
+    top: 45%;
+    left: 25%;
+  }
+
+  .hero-text {
+    top: 15%;
+    right: 10px;
+    left: auto;
+    font-size: 1.8rem;
+    max-width: 180px;
+    text-align: right;
+  }
+
   .golden-curve {
     display: none;
   }
+
   .wheat-stalk {
     height: 220px;
     bottom: 40px;
   }
-  /* .hero-text{
-  margin-left: 400px;
-  } */
+
+  .why-section {
+    background-size: cover;
+    background-position: center;
+    padding: 60px 15px 100px;
+  }
+
+  .bag-icon {
+    width: 200px;
+    height: 200px;
+    margin: 60px auto 0;
+  }
+
+  #rice-bag-small {
+    max-width: 150px;
+  }
+
+  #rice-bag-medium {
+    max-width: 160px;
+  }
+
+  #rice-bag-large {
+    max-width: 170px;
+  }
+}
+
+@media (max-width: 460px) {
+  .hero-text {
+    top: 15%;
+    right: 10px;
+    left: auto;
+    font-size: 1.5rem;
+    max-width: 150px;
+    text-align: right;
+  }
+
+  .product-hero {
+    top: 31%;
+  }
+  .truck.animate {
+    transform: translateX(140%);
+  }
 }
 .products {
   padding: 80px 20px;
