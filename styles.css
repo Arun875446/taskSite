@@ -351,11 +351,6 @@ img {
 }
 
 @media (max-width: 400px) {
-  .product-hero {
-    top: 45%;
-    left: 25%;
-  }
-
   .hero-text {
     top: 15%;
     right: 10px;
@@ -410,10 +405,10 @@ img {
   }
 
   .product-hero {
-    top: 31%;
+    top: 33%;
   }
   .truck.animate {
-    transform: translateX(140%);
+    transform: translateX(110%);
   }
 }
 .products {
